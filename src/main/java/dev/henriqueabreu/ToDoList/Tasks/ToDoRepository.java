@@ -2,5 +2,5 @@ package dev.henriqueabreu.ToDoList.Tasks;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TaskRepository extends JpaRepository<TaskModel, Long> {
+public interface ToDoRepository extends JpaRepository<ToDoModel, Long> {
 }

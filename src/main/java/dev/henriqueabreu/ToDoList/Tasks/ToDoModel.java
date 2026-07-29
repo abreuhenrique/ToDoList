@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TaskModel {
+public class ToDoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
