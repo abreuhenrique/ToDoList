@@ -29,5 +29,10 @@ public class ToDoController {
     public List<ToDoModel> listar() {
         return toDoService.listarTasks();
     }
+
+    @GetMapping("/listar/{id}")
+    public ToDoModel listarId(@PathVariable Long id) {
+        return toDoService.listarID(id);
+    }
  
 }

@@ -3,6 +3,7 @@ package dev.henriqueabreu.ToDoList.Tasks;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ToDoService {
@@ -19,6 +20,11 @@ public class ToDoService {
 
     public List<ToDoModel> listarTasks() {
         return toDoRepository.findAll();
+    }
+
+    public ToDoModel listarID(Long id) {
+        Optional<ToDoModel> taskId = toDoRepository.findById(id);
+        return taskId.orElse(null);
     }
 
 }
