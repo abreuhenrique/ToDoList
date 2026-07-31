@@ -1,0 +1,2 @@
+ALTER TABLE tb_todo
+ALTER COLUMN prazo DATE;
