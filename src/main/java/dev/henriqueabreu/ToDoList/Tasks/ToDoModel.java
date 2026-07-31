@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tb_todo")
@@ -17,8 +17,14 @@ public class ToDoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
-    private LocalDateTime prazo;
+
+    private LocalDate prazo;
+
+    @Enumerated(EnumType.STRING)
+
     private StatusTask status;
-    private String observacao;
+
+    private String descricao;
 }
