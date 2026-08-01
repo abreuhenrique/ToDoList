@@ -1,5 +1,7 @@
 package dev.henriqueabreu.ToDoList.Tasks;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,29 +22,43 @@ public class ToDoController {
     }
 
     @PostMapping("/criar")
-    public ToDoDTO criar(@RequestBody ToDoDTO toDoDTO) {
+    public ResponseEntity<String> criar(@RequestBody ToDoDTO toDoDTO) {
         toDoService.criarTask(toDoDTO);
-        return toDoDTO;
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Task adicionada ao ToDoList!");
     }
 
     @GetMapping("/listar")
-    public List<ToDoDTO> listar() {
-        return toDoService.listarTasks();
+    public ResponseEntity<?> listar() {
+        if (toDoService.listarTasks().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Nenhuma task foi encontrada.");
+        } else {
+            return ResponseEntity.ok(toDoService.listarTasks());
+        }
     }
 
     @GetMapping("/listar/{id}")
-    public ToDoDTO listarId(@PathVariable Long id) {
-        return toDoService.listarId(id);
+    public ResponseEntity<?> listarId(@PathVariable Long id) {
+        if (toDoService.listarId(id) != null) {
+            return ResponseEntity.status(HttpStatus.FOUND)
+                    .body(toDoService.listarId(id));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Task não encontrada.");
+        }
     }
 
     @PutMapping("/atualizar/{id}")
-    public ToDoDTO atualizarTask(@PathVariable Long id, @RequestBody ToDoDTO toDoDTO) {
-        return toDoService.atualizarTask(id, toDoDTO);
+    public ResponseEntity<String> atualizarTask(@PathVariable Long id, @RequestBody ToDoDTO toDoDTO) {
+        toDoService.atualizarTask(id, toDoDTO);
+        return ResponseEntity.ok("Task atualizada com sucesso!");
     }
 
     @DeleteMapping("/deletar/{id}")
-    public String deletarTask(@PathVariable Long id) {
-        return toDoService.deletarTask(id);
+    public ResponseEntity<String> deletarTask(@PathVariable Long id) {
+        toDoService.deletarTask(id);
+        return ResponseEntity.ok("Task deletada.");
     }
  
 }
