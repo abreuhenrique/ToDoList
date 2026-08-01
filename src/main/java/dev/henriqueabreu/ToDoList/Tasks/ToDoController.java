@@ -20,24 +20,24 @@ public class ToDoController {
     }
 
     @PostMapping("/criar")
-    public String criar(@RequestBody ToDoModel toDoModel) {
-        toDoService.criarTask(toDoModel);
-        return "Task criada com sucesso!";
+    public ToDoDTO criar(@RequestBody ToDoDTO toDoDTO) {
+        toDoService.criarTask(toDoDTO);
+        return toDoDTO;
     }
 
     @GetMapping("/listar")
-    public List<ToDoModel> listar() {
+    public List<ToDoDTO> listar() {
         return toDoService.listarTasks();
     }
 
     @GetMapping("/listar/{id}")
-    public ToDoModel listarId(@PathVariable Long id) {
-        return toDoService.listarID(id);
+    public ToDoDTO listarId(@PathVariable Long id) {
+        return toDoService.listarId(id);
     }
 
     @PutMapping("/atualizar/{id}")
-    public String atualizarTask(@PathVariable Long id, @RequestBody ToDoModel toDoModel) {
-        return toDoService.atualizarTask(id, toDoModel);
+    public ToDoDTO atualizarTask(@PathVariable Long id, @RequestBody ToDoDTO toDoDTO) {
+        return toDoService.atualizarTask(id, toDoDTO);
     }
 
     @DeleteMapping("/deletar/{id}")

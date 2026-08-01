@@ -1,40 +1,50 @@
 package dev.henriqueabreu.ToDoList.Tasks;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ToDoService {
 
     private final ToDoRepository toDoRepository;
+    private final ToDoMapper toDoMapper;
 
-    public ToDoService(ToDoRepository toDoRepository) {
+    public ToDoService(ToDoRepository toDoRepository, ToDoMapper toDoMapper) {
         this.toDoRepository = toDoRepository;
+        this.toDoMapper = toDoMapper;
     }
 
-    public void criarTask(ToDoModel toDoModel) {
+    public ToDoDTO criarTask(ToDoDTO toDoDTO) {
+        ToDoModel toDoModel = toDoMapper.map(toDoDTO);
         toDoRepository.save(toDoModel);
+        return toDoMapper.map(toDoModel);
     }
 
-    public List<ToDoModel> listarTasks() {
-        return toDoRepository.findAll();
+    public List<ToDoDTO> listarTasks() {
+        List<ToDoModel> tasks = toDoRepository.findAll();
+        return tasks.stream()
+                .map(toDoMapper::map)
+                .collect(Collectors.toList());
     }
 
-    public ToDoModel listarID(Long id) {
-        Optional<ToDoModel> taskId = toDoRepository.findById(id);
-        return taskId.orElse(null);
+    public ToDoDTO listarId(Long id) {
+        Optional<ToDoModel> toDoModel = toDoRepository.findById(id);
+        return toDoModel.map(toDoMapper::map).orElse(null);
     }
 
-    public String atualizarTask(Long id, ToDoModel toDoModel) {
-        if (toDoRepository.findById(id).isPresent()) {
-            ToDoModel task = toDoModel;
+    public ToDoDTO atualizarTask(Long id, ToDoDTO toDoDTO) {
+        Optional<ToDoModel> taskExistente = toDoRepository.findById(id);
+        if (taskExistente.isPresent()) {
+            ToDoModel task = toDoMapper.map(toDoDTO);
             task.setId(id);
             toDoRepository.save(task);
-            return "Task atualizada com sucesso!";
+            return toDoMapper.map(task);
         } else {
-            return "Task não encontrada";
+            return null;
         }
     }
 
