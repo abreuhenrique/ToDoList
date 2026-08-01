@@ -34,5 +34,10 @@ public class ToDoController {
     public ToDoModel listarId(@PathVariable Long id) {
         return toDoService.listarID(id);
     }
+
+    @PutMapping("/atualizar/{id}")
+    public String atualizarTask(@PathVariable Long id, @RequestBody ToDoModel toDoModel) {
+        return toDoService.atualizarTask(id, toDoModel);
+    }
  
 }

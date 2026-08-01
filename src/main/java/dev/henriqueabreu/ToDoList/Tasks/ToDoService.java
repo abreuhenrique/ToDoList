@@ -27,4 +27,14 @@ public class ToDoService {
         return taskId.orElse(null);
     }
 
+    public String atualizarTask(Long id, ToDoModel toDoModel) {
+        if (toDoRepository.findById(id).isPresent()) {
+            ToDoModel task = toDoModel;
+            task.setId(id);
+            toDoRepository.save(task);
+            return "Task atualizada com sucesso!";
+        } else {
+            return "Task não encontrada";
+        }
+    }
 }
