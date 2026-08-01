@@ -37,4 +37,13 @@ public class ToDoService {
             return "Task não encontrada";
         }
     }
+
+    public String deletarTask(Long id) {
+        if (toDoRepository.findById(id).isPresent()) {
+            toDoRepository.deleteById(id);
+            return "Task no id " + id + " deletada com sucesso!";
+        } else {
+            return "Não foi possivel deletar a task no id " + id + ".";
+        }
+    }
 }

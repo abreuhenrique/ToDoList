@@ -39,5 +39,10 @@ public class ToDoController {
     public String atualizarTask(@PathVariable Long id, @RequestBody ToDoModel toDoModel) {
         return toDoService.atualizarTask(id, toDoModel);
     }
+
+    @DeleteMapping("/deletar/{id}")
+    public String deletarTask(@PathVariable Long id) {
+        return toDoService.deletarTask(id);
+    }
  
 }
