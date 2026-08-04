@@ -1,0 +1,30 @@
+<!
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Criar Nova Task  </title>
+</head>
+<body>
+    <h1>Cadastrar nova Tarefa</h1>
+    <div th:if="${mensagem}" th:text="${mensagem}"></div>
+    <form th:action="@{/todo/ui/salvar}" th:object="${toDo}" method="post">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" th:field="*{nome}" required>
+
+        <label for="prazo">Prazo</label>
+        <input type="text" id="prazo" th:field="*{prazo}" required>
+
+        <label for="descricao">Descricao</label>
+        <input type="text" id="descricao" th:field="*{descricao}">
+
+        <label for="status">Status</label>
+        <input type="text" id="status" th:field="*{status}">
+
+        <button type="submit">Criar ToDo</button>
+    </form>
+
+    <a th:href="@{/todo/ui/listar}">Voltar</a>
+
+</body>
+</html>

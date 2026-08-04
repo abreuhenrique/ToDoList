@@ -1,0 +1,17 @@
+<!
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalhes da Task</title>
+</head>
+<body>
+    <h1>Detalhes da Task</h1>
+    <p><strong>Nome: <span th:text="${todo.nome}"></span></strong></p>
+    <p><strong>Descrição: <span th:text="${todo.descricao}"></span></strong></p>
+    <p><strong>Prazo: <span th:text="${todo.prazo}"></span></strong></p>
+    <p><strong>Status: <span th:text="${todo.status}"></span></strong></p>
+
+    <a th:href="@{/todo/ui/listar}">Voltar</a>
+</body>
+</html>

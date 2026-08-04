@@ -6,6 +6,32 @@
     <title>ToDoList</title>
 </head>
 <body>
+    <h1>ToDoList</h1>
 
+    <a th:href="@{/todo/ui/criar}">Adicionar Nova Task</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Prazo</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tasks: ${tasks}">
+            <td th:text="${tasks.nome}"></td>
+            <td th:text="${tasks.prazo}"></td>
+            <td th:text="${tasks.status}"></td>
+            <td>
+                <a th:href="@{/todo/ui/listar/{id}(id=${tasks.id})}">Ver detalhes</a>
+            </td>
+            <td>
+                <a th:href="@{/todo/ui/excluir/{id}(id=${tasks.id})}">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>
