@@ -2,7 +2,8 @@ package dev.henriqueabreu.ToDoList.Tasks;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -16,10 +17,44 @@ public class ToDoControllerUi {
         this.toDoService = toDoService;
     }
 
+    @GetMapping("/listar")
     public String listarTasks(Model model) {
         List<ToDoDTO> tasks = toDoService.listarTasks();
         model.addAttribute("tasks", tasks);
         return "toDoList";
+    }
+
+    @GetMapping("/criar")
+    public String criarToDo(Model model) {
+        model.addAttribute("toDo", new ToDoDTO());
+        return "criarToDo";
+    }
+
+    @PostMapping("/salvar")
+    public String salvarToDo(@ModelAttribute ToDoDTO toDo, RedirectAttributes redirectAttributes) {
+        toDoService.criarTask(toDo);
+        redirectAttributes.addAttribute("mensagem", "Task adicionada!");
+        return "redirect:/todo/ui/listar";
+    }
+
+    @GetMapping("/listar/{id}")
+    public String verDetalhes(@PathVariable Long id, Model model) {
+        ToDoDTO toDo = toDoService.listarId(id);
+
+        if (toDo != null) {
+            model.addAttribute("todo", toDo);
+            return "detalhesTask";
+        }
+        else {
+            model.addAttribute("mensagem", "Task não encontrada.");
+            return "toDoList";
+        }
+    }
+
+    @GetMapping("excluir/{id}")
+    public String excluirTask(@PathVariable Long id) {
+            toDoService.deletarTask(id);
+            return "redirect:/todo/ui/listar";
     }
 
 }
