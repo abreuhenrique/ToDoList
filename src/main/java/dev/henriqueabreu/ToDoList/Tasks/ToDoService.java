@@ -1,6 +1,5 @@
 package dev.henriqueabreu.ToDoList.Tasks;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,12 +47,14 @@ public class ToDoService {
         }
     }
 
-    public String deletarTask(Long id) {
-        if (toDoRepository.findById(id).isPresent()) {
-            toDoRepository.deleteById(id);
-            return "Task no id " + id + " deletada com sucesso!";
-        } else {
-            return "Não foi possivel deletar a task no id " + id + ".";
-        }
+    public void deletarTask(Long id) {
+        toDoRepository.deleteById(id);
+    }
+
+    public ToDoDTO concluirTask(Long id, ToDoDTO toDoDTO) {
+            toDoDTO.setStatus(StatusTask.CONCLUIDO);
+            ToDoModel taskConcluida = toDoMapper.map(toDoDTO);
+            toDoRepository.save(taskConcluida);
+            return toDoMapper.map(taskConcluida);
     }
 }
