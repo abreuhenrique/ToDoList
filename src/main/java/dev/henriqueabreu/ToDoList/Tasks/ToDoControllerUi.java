@@ -51,6 +51,22 @@ public class ToDoControllerUi {
         }
     }
 
+    @GetMapping("/atualizar/{id}")
+    public String atualizarTask(@PathVariable Long id, Model model) {
+        ToDoDTO todo = toDoService.listarId(id);
+        if (todo == null) {
+            return "redirect:/todo/ui/listar";
+        }
+        model.addAttribute("todo", todo);
+        return "atualizarTask";
+    }
+
+    @PostMapping("/salvar-atualizacao/{id}")
+    public String salvarAtualizacao(@PathVariable Long id, @ModelAttribute("todo") ToDoDTO toDoDTO) {
+        toDoService.atualizarTask(id, toDoDTO);
+        return "redirect:/todo/ui/listar";
+    }
+
     @GetMapping("/concluir/{id}")
     public String concluirTask(@PathVariable Long id) {
         toDoService.concluirTask(id);

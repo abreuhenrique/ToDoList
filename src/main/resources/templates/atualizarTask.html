@@ -1,0 +1,26 @@
+<!
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Atualizar Task</title>
+</head>
+<body>
+    <h1>Atualizar Task</h1>
+    <form th:action="@{/todo/ui/salvar-atualizacao/{id}(id=${todo.id})}" th:object="${todo}" th:method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}" required>
+
+        <label for="prazo">Prazo:</label>
+        <input type="text" id="prazo" th:field="*{prazo}" required>
+
+        <label for="status">Nome:</label>
+        <input type="text" id="status" th:field="*{status}" required>
+
+        <label for="descricao">Nome:</label>
+        <input type="text" id="descricao" th:field="*{descricao}" required>
+
+        <button type="submit">Atualizar Task</button>
+    </form>
+</body>
+</html>
