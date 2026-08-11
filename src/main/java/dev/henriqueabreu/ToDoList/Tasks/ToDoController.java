@@ -52,6 +52,12 @@ public class ToDoController {
         return ResponseEntity.ok("Task atualizada!");
     }
 
+    @PatchMapping("/concluir/{id}")
+    public ResponseEntity<String> concluirTask(@PathVariable Long id) {
+        toDoService.concluirTask(id);
+        return ResponseEntity.ok("Task concluida!");
+    }
+
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarTask(@PathVariable Long id) {
         toDoService.deletarTask(id);

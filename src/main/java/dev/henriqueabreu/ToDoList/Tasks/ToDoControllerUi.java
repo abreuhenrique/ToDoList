@@ -51,6 +51,12 @@ public class ToDoControllerUi {
         }
     }
 
+    @GetMapping("/concluir/{id}")
+    public String concluirTask(@PathVariable Long id) {
+        toDoService.concluirTask(id);
+        return "redirect:/todo/ui/listar";
+    }
+
     @GetMapping("/excluir/{id}")
     public String excluirTask(@PathVariable Long id) {
         toDoService.deletarTask(id);

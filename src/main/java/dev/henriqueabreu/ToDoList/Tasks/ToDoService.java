@@ -47,6 +47,18 @@ public class ToDoService {
         }
     }
 
+    public ToDoDTO concluirTask(Long id) {
+        Optional<ToDoModel> taskExistente = toDoRepository.findById(id);
+        if (taskExistente.isPresent()) {
+            ToDoModel task = taskExistente.get();
+            task.setStatus(StatusTask.CONCLUIDO);
+            toDoRepository.save(task);
+            return toDoMapper.map(task);
+        } else {
+            return null;
+        }
+    }
+
     public void deletarTask(Long id) {
         toDoRepository.deleteById(id);
     }
