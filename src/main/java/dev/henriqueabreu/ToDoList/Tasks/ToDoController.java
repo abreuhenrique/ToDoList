@@ -57,11 +57,4 @@ public class ToDoController {
         toDoService.deletarTask(id);
         return ResponseEntity.ok("Task Deletada");
     }
-
-    @PatchMapping("/concluir/{id}")
-    public ResponseEntity<String> concluirTask(@PathVariable Long id, @RequestBody ToDoDTO toDoDTO) {
-        toDoService.concluirTask(id, toDoDTO);
-        return ResponseEntity.ok("Task concluída");
-    }
- 
 }

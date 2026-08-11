@@ -51,10 +51,4 @@ public class ToDoService {
         toDoRepository.deleteById(id);
     }
 
-    public ToDoDTO concluirTask(Long id, ToDoDTO toDoDTO) {
-            toDoDTO.setStatus(StatusTask.CONCLUIDO);
-            ToDoModel taskConcluida = toDoMapper.map(toDoDTO);
-            toDoRepository.save(taskConcluida);
-            return toDoMapper.map(taskConcluida);
-    }
 }

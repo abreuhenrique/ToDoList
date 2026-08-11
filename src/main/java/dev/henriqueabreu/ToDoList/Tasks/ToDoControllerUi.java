@@ -51,10 +51,10 @@ public class ToDoControllerUi {
         }
     }
 
-    @GetMapping("excluir/{id}")
+    @GetMapping("/excluir/{id}")
     public String excluirTask(@PathVariable Long id) {
-            toDoService.deletarTask(id);
-            return "redirect:/todo/ui/listar";
+        toDoService.deletarTask(id);
+        return "redirect:/todo/ui/listar";
     }
 
 }
